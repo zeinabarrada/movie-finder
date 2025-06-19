@@ -1,0 +1,24 @@
+{
+  "name": "movie-finder",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint-config-next": "15.3.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "next": "^15.3.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
