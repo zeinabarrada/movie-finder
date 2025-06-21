@@ -1,29 +1,202 @@
 /*!**********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/searchbar.css ***!
   \**********************************************************************************************************************************************************************************************************************************************************************/
-.input {
-  width: 100%;
-  padding: 8px;
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.search-input {
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  width: 300px;
+  outline: none;
+}
+
+.search-button {
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: none;
+  background-color: #f5c518;
+  color: #1e2a38;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #e6b700;
+}
+
+.suggestions-list {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  width: 300px;
+}
+
+.suggestion-item {
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+  background-color: #ddd;
 }
 
 /*!***************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/trendingmovies.css ***!
   \***************************************************************************************************************************************************************************************************************************************************************************/
 .container {
-  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 .grid {
-  margin: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 2rem;
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-gap: 20px;
+  gap: 20px;
 }
 .card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.image-container {
+  width: 100%;
+  height: 270px;
+  overflow: hidden;
+}
+
 .movie-poster {
   width: 100%;
-  height: 300px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .movie-poster {
+  transform: scale(1.05);
+}
+
+.card-details {
+  padding: 10px 15px;
+}
+
+.card-details h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.card-details p {
+  font-size: 0.9rem;
+  color: #555;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/loading.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #f5c518;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.global-loading {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*!****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/app.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************/
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Optional body background */
+body {
+  background-color: F4F4F4; /* Or any light background you prefer */
+  color: #333333; /* Default text color */
+}
+
+/* Container class for consistent page padding */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #222;
+}
+
+/* Links (optional: in case you want to reset all links globally) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Button defaults */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Image defaults */
+img {
+  max-width: 100%;
+  display: block;
 }
 

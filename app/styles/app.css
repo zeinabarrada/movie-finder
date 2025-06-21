@@ -1,0 +1,51 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Optional body background */
+body {
+  background-color: F4F4F4; /* Or any light background you prefer */
+  color: #333333; /* Default text color */
+}
+
+/* Container class for consistent page padding */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #222;
+}
+
+/* Links (optional: in case you want to reset all links globally) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Button defaults */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Image defaults */
+img {
+  max-width: 100%;
+  display: block;
+}

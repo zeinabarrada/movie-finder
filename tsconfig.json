@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     // Environment setup & latest features
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext", "dom"],
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
@@ -31,13 +29,6 @@
       }
     ]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

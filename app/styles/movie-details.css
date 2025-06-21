@@ -1,0 +1,87 @@
+.movie-details-container {
+  font-family: Helvetica, sans-serif;
+  color: white;
+  background-color: #2d282f;
+  min-height: 640px;
+}
+.backdrop-image {
+  background-size: cover;
+  background-position: center;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  object-fit: cover;
+  object-position: center;
+}
+.backdrop-content {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 150px;
+}
+
+.movie-title {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.movie-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+.overview {
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.credits {
+  display: flex;
+  gap: 3rem;
+}
+
+.credit-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #e50914;
+}
+
+.credit-item p {
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .credits {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .backdrop-image {
+    height: 60vh;
+  }
+
+  .movie-title {
+    font-size: 2rem;
+  }
+}
