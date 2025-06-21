@@ -3,7 +3,9 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../../loading";
+import Image from "next/image";
 import "../../styles/movie-details.css";
+import image from "../../image.png";
 export default function MovieDetailsPage() {
   const params = useParams();
   const id = params.id as string;
@@ -37,16 +39,20 @@ export default function MovieDetailsPage() {
   return (
     <div className="movie-details-container">
       {movie.backdrop_path && (
-        <div
-          className="backdrop-image"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%), url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
-          }}
-        >
+        <div className="backdrop-image">
+          <Image
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title}
+            fill
+            sizes="100vw"
+            className="backdrop-img"
+          />
+          <div className="gradient-overlay"></div>
+
           <div className="backdrop-content">
             <h1 className="movie-title">{movie.title}</h1>
             <div className="movie-meta">
-              <span>{movie.vote_average.toFixed(1)}</span>
+              <span>⭐ {movie.vote_average.toFixed(1)}</span>
               <span>|</span>
               <span>{movie.release_date.split("-")[0]}</span>
               <span>|</span>
@@ -57,30 +63,54 @@ export default function MovieDetailsPage() {
               </span>
             </div>
             <p className="overview">{movie.overview}</p>
+            <div className="credits-section">
+              <div className="credit-item">
+                <div className="cast-member">
+                  <h3>Director</h3>
+                  {director && director.profile_path ? (
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w500${director.profile_path}`}
+                      alt={director.name}
+                      width={80}
+                      height={80}
+                      className="person-image"
+                    />
+                  ) : (
+                    <Image src={image} alt="No Image" width={80} height={80} />
+                  )}
+                </div>
+                <p>{director ? director.name : "N/A"}</p>
+              </div>
+              <div className="credit-item">
+                <h3>Cast</h3>
+                <div className="cast-list">
+                  {movie.credits.cast.slice(0, 5).map((actor: any) => (
+                    <div key={actor.id} className="cast-member">
+                      {actor.profile_path ? (
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                          alt={actor.name}
+                          width={80}
+                          height={80}
+                          className="person-image"
+                        />
+                      ) : (
+                        <Image
+                          src={image}
+                          alt="No Image"
+                          width={80}
+                          height={80}
+                        />
+                      )}
+                      <p>{actor.name}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
-      <div className="content-wrapper">
-        <div className="main-content">
-          <div className="overview"></div>
-          <div className="credits">
-            <div className="credit-item">
-              <h3>Director</h3>
-              <p>{director ? director.name : "N/A"}</p>
-            </div>
-
-            <div className="credit-item">
-              <h3>Cast</h3>
-              <p>
-                {movie.credits.cast
-                  .slice(0, 5)
-                  .map((actor: any) => actor.name)
-                  .join(", ")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

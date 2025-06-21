@@ -5,9 +5,16 @@ import Link from "next/link";
 import type { Movie } from "../types/movie";
 import FavoriteButton from "./FavoriteButton";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import Loading from "../loading";
+
 export default function TrendingMovies() {
-  const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
+  const [trendingMovies, setTrendingMovies] = useState<any>([]);
+  const [selectedMovie, setSelectedMovie] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchTrendingMovies() {
@@ -19,6 +26,7 @@ export default function TrendingMovies() {
           results: Movie[];
         };
         setTrendingMovies(data.results);
+        setSelectedMovie(data.results[0]);
         console.log(data);
         setLoading(false);
       } catch (error) {
@@ -30,30 +38,48 @@ export default function TrendingMovies() {
   }, []);
   if (loading) return <Loading />;
   return (
-    <div className="container">
-      <h2>Trending Movies</h2>
-      <div className="grid">
-        {trendingMovies.map((movie) => (
-          <div className="card" key={movie.id}>
-            <FavoriteButton movie={movie} />
-            <Link href={`/movie/${movie.id}`}>
-              <div className="image-container">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className="movie-poster"
-                  width="100"
-                  height="100"
-                />
-              </div>
-              <div className="card-details">
-                <h3>{movie.title}</h3>
-                <p>Rating: ⭐ {movie.vote_average}</p>
-                <p>Release: {movie.release_date}</p>
-              </div>
-            </Link>
+    <div className="swiper-container">
+      <div className="backdrop-image">
+        <Image
+          src={`https://image.tmdb.org/t/p/original${selectedMovie.backdrop_path}`}
+          alt={selectedMovie.title}
+          fill
+          sizes="100vw"
+          className="backdrop-img"
+        />
+        <div className="gradient-overlay"></div>
+        <div className="backdrop-content">
+          <h1 className="movie-title">{selectedMovie.title}</h1>
+          <div className="movie-meta">
+            <span>⭐ {selectedMovie.vote_average.toFixed(1)}</span>
+            <span>|</span>
+            <span>{selectedMovie.release_date.split("-")[0]}</span>
           </div>
-        ))}
+          <p className="overview">{selectedMovie.overview}</p>
+          <div className="trending-actions">
+            <Link href={`/movie/${selectedMovie.id}`}>
+              <button className="watch-button">View Details</button>
+            </Link>
+            <FavoriteButton movie={selectedMovie} />
+          </div>
+        </div>
+        <div className="poster-row">
+          {trendingMovies.map((movie: any) => (
+            <div
+              className="poster-card"
+              key={movie.id}
+              onClick={() => setSelectedMovie(movie)}
+            >
+              <Image
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt={movie.title}
+                width={100}
+                height={150}
+                className="poster-img"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

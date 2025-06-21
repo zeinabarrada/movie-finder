@@ -32,67 +32,118 @@
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/movie-details.css ***!
   \**************************************************************************************************************************************************************************************************************************************************************************/
 .movie-details-container {
-  font-family: Helvetica, sans-serif;
   color: white;
   background-color: #2d282f;
-  min-height: 640px;
-}
-.backdrop-image {
-  background-size: cover;
-  background-position: center;
-  min-height: 640px;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  object-fit: cover;
-  object-position: center;
-}
-.backdrop-content {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 150px;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.movie-title {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.backdrop-image {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
+
+.backdrop-img {
+  object-fit: cover;
+  z-index: 1;
+}
+
+.gradient-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.9) 20%,
+    rgba(0, 0, 0, 0.7) 40%,
+    rgba(0, 0, 0, 0.3) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 2;
+}
+
+.backdrop-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  color: white;
+  margin-left: 60px;
+  margin-top: 50px;
+}
+
+.backdrop-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
 .movie-meta {
   display: flex;
-  gap: 1rem;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
+  gap: 10px;
+  margin-bottom: 15px;
 }
+
 .overview {
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  opacity: 0.9;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 700px;
 }
 
-.content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.credits-section {
   display: flex;
-  gap: 2rem;
-}
-
-.main-content {
-  flex: 1 1;
-}
-
-.credits {
-  display: flex;
+  align-items: flex-start;
   gap: 3rem;
+  padding: 20px 0;
+}
+.credit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cast-list {
+  display: flex;
+}
+.cast-member {
+  flex: 0 0 auto;
+  text-align: center;
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.cast-member:hover {
+  transform: translateY(-2px);
+}
+
+.cast-member p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 500;
+}
+
+.person-image {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cast-member:hover .person-image {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
 }
 
 .credit-item h3 {
   font-size: 1.2rem;
+  margin-top: 10px;
   margin-bottom: 0.5rem;
-  color: #e50914;
+  color: white;
 }
 
 .credit-item p {
@@ -101,6 +152,9 @@
 }
 
 @media (max-width: 768px) {
+  .movie-details-container {
+    height: 100vh;
+  }
   .content-wrapper {
     flex-direction: column;
   }
@@ -116,6 +170,37 @@
 
   .movie-title {
     font-size: 2rem;
+  }
+
+  .cast-list {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+  }
+
+  .cast-member {
+    padding: 8px;
+  }
+
+  .cast-member p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-details-container {
+    height: 100vh;
+  }
+  .cast-list {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 8px;
+  }
+
+  .cast-member {
+    padding: 6px;
+  }
+
+  .cast-member p {
+    font-size: 0.75rem;
   }
 }
 

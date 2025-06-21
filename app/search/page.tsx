@@ -3,6 +3,10 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Movie } from "../types/movie";
 import Link from "next/link";
+import Image from "next/image";
+import "../styles/movies.css";
+import image from "../image.png";
+import FavoriteButton from "../components/FavoriteButton";
 export default function Page() {
   const params = useSearchParams();
   const query = params.get("query");
@@ -26,21 +30,31 @@ export default function Page() {
     fetchResults();
   }, [query]);
   return (
-    <div>
-      <h1>Search Results for: {query}</h1>
-      {results.map((movie) => (
-        <div key={movie.id} style={{ marginBottom: "20px" }}>
-          <Link href={`/movie/${movie.id}`}>
-            <h3>{movie.title}</h3>
-            {movie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                alt={movie.title}
-              />
-            )}
-          </Link>
-        </div>
-      ))}
+    <div className="movie-conainer">
+      <h1 className="page-title">Search Results for: {query}</h1>
+
+      <div className="movie-card">
+        {results.map((movie) => (
+          <div key={movie.id} className="list-item">
+            <FavoriteButton movie={movie} />
+            <Link href={`/movie/${movie.id}`}>
+              {movie.poster_path && (
+                <Image
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                      : image
+                  }
+                  alt={movie.title}
+                  width={200}
+                  height={250}
+                />
+              )}
+              <h4 className="movie-title">{movie.title}</h4>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,20 +1,36 @@
 "use client";
 import "../styles/searchbar.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { ChangeEvent } from "react";
 import type { Movie } from "../types/movie";
 import Link from "next/link";
 import Image from "next/image";
+import SuggestionsList from "./SuggestionsList";
+
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
   const [suggestions, setSuggestions] = useState<Movie[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const router = useRouter();
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+    setShowSuggestions(true);
   };
 
   useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target as Node)
+      ) {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    }
     async function searchMovies() {
       if (searchInput.length === 0) {
         setSuggestions([]);
@@ -37,7 +53,10 @@ export default function SearchBar() {
     if (searchInput) {
       searchMovies();
     }
-    return setSuggestions([]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      setSuggestions([]);
+    };
   }, [searchInput]);
 
   function handleSearch() {
@@ -57,21 +76,14 @@ export default function SearchBar() {
       <button className="search-button" onClick={handleSearch}>
         Search
       </button>
-      {suggestions.length > 0 && (
-        <ul className="suggestions-list">
-          {suggestions.map((movie) => {
-            return (
-              <li className="suggestion-item" key={movie.id}>
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <Link href={`/movie/${movie.id}`}>{movie.title}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <div ref={suggestionsRef}>
+        {showSuggestions && (
+          <SuggestionsList
+            searchInput={searchInput}
+            suggestions={suggestions}
+          />
+        )}
+      </div>
     </div>
   );
 }

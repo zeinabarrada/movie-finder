@@ -6,7 +6,6 @@ import "../app/styles/searchbar.css";
 export default async function HomePage() {
   return (
     <div>
-      <SearchBar />
       <TrendingMovies />
     </div>
   );
